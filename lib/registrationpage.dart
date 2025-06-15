@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/main.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class Registrationpage extends StatelessWidget {
+  const Registrationpage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,15 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Login Screen',
+              'Registation Screen',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
+
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Name',
+                border: OutlineInputBorder(),
+              ),
             ),
 
             TextField(
@@ -34,7 +41,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
 
-            ElevatedButton(onPressed: () {}, child: Text("Logout")),
+            ElevatedButton(onPressed: () {}, child: Text("Submit")),
           ],
         ),
       ),
