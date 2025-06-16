@@ -7,35 +7,103 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22),
-        child: Column(
-          spacing: 20,
+      appBar: AppBar(title: Text('Home page')),
 
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Login Screen',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            ),
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[400],
+          ),
 
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Email',
-                border: OutlineInputBorder(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 10,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                spacing: 20,
+                children: [
+                  CircleAvatar(
+                    radius: 35,
+                    child: Icon(Icons.person_add_alt_1_outlined, size: 40),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Name: Swastika Majhi',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+
+                      Text(
+                        'Age: 23',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+
+                      Text(
+                        'Address: Biratnagar',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
+              Divider(color: Colors.black, thickness: 1.5),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.public),
+                      SizedBox(
+                        height: 18,
+                        child: VerticalDivider(
+                          width: 20,
+                          thickness: 1.5,
+                          color: Colors.black,
+                        ),
+                      ),
 
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Password',
+                      Text(
+                        'https://www.google.com',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.mail_outline),
+                      SizedBox(
+                        height: 18,
+                        child: VerticalDivider(
+                          width: 20,
+                          thickness: 1.5,
+                          color: Colors.black,
+                        ),
+                      ),
 
-                border: OutlineInputBorder(),
+                      Text(
+                        'swastika@gmail.com',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-
-            ElevatedButton(onPressed: () {}, child: Text("Logout")),
-          ],
+            ],
+          ),
         ),
       ),
     );

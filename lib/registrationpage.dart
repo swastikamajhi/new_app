@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/home.dart';
 import 'package:new_app/main.dart';
 
 class Registrationpage extends StatefulWidget {
@@ -10,6 +11,11 @@ class Registrationpage extends StatefulWidget {
 
 class _RegistrationpageState extends State<Registrationpage> {
   final _formkey = GlobalKey<FormState>();
+
+  final namecontroller = TextEditingController();
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +28,9 @@ class _RegistrationpageState extends State<Registrationpage> {
 
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //circleAvater(radius: 35, child: Icon(Icons.person)),
               Image.asset("android/assests/man.jpg", height: 200, width: 200),
+
               Text(
                 'Registation Screen',
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
@@ -63,29 +71,45 @@ class _RegistrationpageState extends State<Registrationpage> {
               ),
 
               TextFormField(
+                controller: passwordcontroller,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  hintText: 'Password',
 
-                  border: OutlineInputBorder(),
-                ),
                 validator: (value) {
                   if (value == '' || value == null) {
                     return 'Password cannot be empty'; //we are not passing the error here.
-                  } else if (value == 'Ram') {
-                    return 'Password to short';
+                  } else if (value.length < 3) {
+                    return 'Password too short';
                   } else {
                     return null; //this means no error as occured
                   }
                 },
+                obscureText: true, //hides the text while typing
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
               ),
+
               ElevatedButton(
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
+                    if (emailcontroller.text == 'swastika@gmail.com' &&
+                        passwordcontroller.text == 'swastika123') {
+                      //if the above condition is setisfied,then goto MyHomePage
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MyHomePage();
+                          },
+                        ),
+                      );
+
+                      Navigator.of(context).pop();
+                    }
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text("Form Submited."),
-                        backgroundColor: Colors.green,
+                        backgroundColor: const Color.fromARGB(255, 66, 220, 71),
                         behavior: SnackBarBehavior.floating,
                       ),
                     );

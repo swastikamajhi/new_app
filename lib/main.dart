@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/home.dart';
 import 'package:new_app/registrationpage.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
       ),
-      home: const Registrationpage(),
+      home: const MyHomePage(),
     );
   }
 }
