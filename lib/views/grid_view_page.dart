@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/constants/fruits_contants.dart';
 import 'package:new_app/models/fruit_model.dart';
+import 'package:new_app/views/fruits_detail_page.dart';
+import 'package:new_app/widgets/search_bar_widget.dart';
 
 class GridViewPage extends StatefulWidget {
   const GridViewPage({super.key});
@@ -10,6 +12,23 @@ class GridViewPage extends StatefulWidget {
 }
 
 class _GridViewPageState extends State<GridViewPage> {
+  void searchFruit(String searchQuery) {
+    if (searchQuery == '') {
+      setState(() {
+        filteredFruitList = fruitList;
+      });
+    } else {
+      setState(() {
+        filteredFruitList = fruitList.where((e) {
+          return e.name.toLowerCase().contains(searchQuery.toLowerCase()) ||
+              e.price.contains(searchQuery.toLowerCase());
+        }).toList();
+      });
+    }
+  }
+
+  List<FruitModel> filteredFruitList = [];
+
   final fruitList = [
     FruitModel(name: 'Apple', price: '200', imageUrl: FruitsContants.appleUrl),
     FruitModel(name: 'Banana', price: '60', imageUrl: FruitsContants.bananaUrl),
@@ -39,43 +58,77 @@ class _GridViewPageState extends State<GridViewPage> {
   ];
 
   @override
+  void initState() {
+    filteredFruitList = fruitList;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Grid View Page'), centerTitle: true),
-
-      body: GridView.builder(
-        physics: AlwaysScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 30,
-          crossAxisSpacing: 20,
-          crossAxisCount: 3,
-          childAspectRatio: 8 / 9,
-        ),
-        padding: EdgeInsets.all(20),
-        itemCount: fruitList.length,
-
-        itemBuilder: (context, index) {
-          final fruit = fruitList[index];
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[300],
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: SearchBarWidget(
+              onSearch: (String searchQuery) {
+                searchFruit(searchQuery);
+              },
             ),
-            padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(fruit.imageUrl, height: 50, width: 50),
-                Text(
-                  fruit.name,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              physics: AlwaysScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 30,
+                crossAxisSpacing: 20,
+                crossAxisCount: 3,
+                childAspectRatio: 8 / 9,
+              ),
+              padding: EdgeInsets.all(20),
+              itemCount: filteredFruitList.length,
 
-                Text(fruit.price, style: TextStyle(fontSize: 14)),
-              ],
+              itemBuilder: (context, index) {
+                final fruit = filteredFruitList[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FruitsDetailPage(fruit: fruit),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[300],
+                    ),
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(fruit.imageUrl, height: 50, width: 50),
+                        Text(
+                          fruit.name,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          "Rs. ${fruit.price}",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
