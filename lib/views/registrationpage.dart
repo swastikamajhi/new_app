@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:new_app/main.dart';
-import 'package:new_app/views/home.dart';
+import 'package:new_app/views/home_page.dart';
 
 class Registrationpage extends StatefulWidget {
   const Registrationpage({super.key});

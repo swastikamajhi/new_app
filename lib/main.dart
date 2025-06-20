@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_app/views/grid_view_page.dart';
+import 'package:new_app/main_nav_page.dart';
 
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
       ),
-      home: const GridViewPage(),
+      home: const MainNavPage(),
     );
   }
 }
